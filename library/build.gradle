@@ -1,29 +1,32 @@
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.2'
-        classpath 'com.novoda:bintray-release:0.3.4'
-    }
-}
-
 apply plugin: 'com.android.library'
-apply plugin: 'bintray-release'
+apply plugin: 'com.github.dcendents.android-maven'
+
+group='com.github.meierjan'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '25.0.0'
+    compileSdkVersion 26
+    buildToolsVersion "26.0.1"
 
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 25
+        minSdkVersion 15
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.1"
+        vectorDrawables.useSupportLibrary = true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
     }
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:25.0.0'
-    compile 'com.android.support:customtabs:25.0.0'
+    compile 'com.android.support:appcompat-v7:26.0.2'
+    compile 'com.android.support:customtabs:26.0.2'
     compile 'com.novoda:notils:2.2.13'
 
     testCompile 'junit:junit:4.12'
@@ -32,13 +35,3 @@ dependencies {
     testCompile 'org.robolectric:robolectric:2.4'
 }
 
-publish {
-    userOrg = 'novoda'
-    groupId = 'com.novoda'
-    artifactId = 'simple-chrome-custom-tabs'
-    publishVersion = '0.1.3'
-    description = 'Provides easy integration of Chrome Custom Tabs into your project.'
-    website = 'https://github.com/novoda/simplechromecustomtabs'
-}
-
-apply from: "$project.rootDir/code-quality/android-code-quality.gradle"
